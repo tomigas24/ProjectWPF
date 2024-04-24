@@ -68,6 +68,7 @@ namespace Dash
         {
             Launches = Launch.GetListLaunch();
 
+            this.totalLaunchesTextBlock.Text = this.Launches.GetTotalLaunches().ToString();
             this.totalGamesTextBlock.Text = this.Launches.GetTotalGames().ToString();
 
 

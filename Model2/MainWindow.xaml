@@ -65,8 +65,8 @@
                 </hc:Card>
                 <StackPanel Margin="15, 10, 0, 0">
                     <!--<Image HorizontalAlignment="Left" Height="30"  VerticalAlignment="Top" Width="30" Source="img/icons8-graph-49.png"/>-->
-                    <TextBlock HorizontalAlignment="Left" Height="44.4"  TextWrapping="Wrap" Text="Total Games" VerticalAlignment="Top" Width="192" FontWeight="Bold" Padding="0" Foreground="White" FontSize="26"/>
-                    <TextBlock x:Name="totalGamesTextBlock" HorizontalAlignment="Left" Height="35"  TextWrapping="Wrap" Text="7" Width="186" Padding="0" Foreground="White" FontSize="24"/>
+                    <TextBlock HorizontalAlignment="Left" Height="44.4"  TextWrapping="Wrap" Text="Total Launches" VerticalAlignment="Top" Width="192" FontWeight="Bold" Padding="0" Foreground="White" FontSize="26"/>
+                    <TextBlock x:Name="totalLaunchesTextBlock" HorizontalAlignment="Left" Height="35"  TextWrapping="Wrap" Text="7" Width="186" Padding="0" Foreground="White" FontSize="24"/>
                 </StackPanel>
                 <hc:Card Margin="10,140,0,-140" Content="" HorizontalAlignment="Left"  Height="125" VerticalAlignment="Top" Width="320">
                     <hc:Card.Background>
@@ -79,7 +79,7 @@
                 <StackPanel Margin="15,139,0,-139">
                     <!--<Image HorizontalAlignment="Left" Height="30"  VerticalAlignment="Top" Width="30" Source="img/icons8-graph-49.png"/>-->
                     <TextBlock HorizontalAlignment="Left" Height="44.4"  TextWrapping="Wrap" Text="Total Games" VerticalAlignment="Top" Width="192" FontWeight="Bold" Padding="0" Foreground="White" FontSize="26"/>
-                    <TextBlock x:Name="totalGamesTextBlock1" HorizontalAlignment="Left" Height="35"  TextWrapping="Wrap" Text="7" Width="186" Padding="0" Foreground="White" FontSize="24"/>
+                    <TextBlock x:Name="totalGamesTextBlock" HorizontalAlignment="Left" Height="35"  TextWrapping="Wrap" Text="7" Width="186" Padding="0" Foreground="White" FontSize="24"/>
                 </StackPanel>
             </Grid>
         </StackPanel>

@@ -22,6 +22,14 @@ namespace BusinessLayer
             this.LoadList(dataTable);
         }
 
+        public int GetTotalLaunches()
+        {
+            int totalGames = 0;
+
+
+            totalGames = this.Select(k => k.Id).Distinct().Count();
+            return totalGames;
+        }
         public int GetTotalGames()
         {
             int totalGames = 0;
