@@ -44,9 +44,9 @@ namespace BusinessLayer
                     Launch launch = new Launch();
                     launch.Id = dataRow.Field<long>("Id");
                     launch.GameId = dataRow.Field<long>("GameId");
-                    launch.RealeaseDate = dataRow.Field<DateTime>("RealeaseDate");
-                    launch.Rating = dataRow.Field<float>("Rating");
-                    launch.Price = dataRow.Field<float>("Price");
+                    launch.RealeaseDate = dataRow.Field<DateTime>("ReleaseDate");
+                    launch.Rating = (float)dataRow.Field<double>("Rating");
+                    launch.Price = (float)dataRow.Field<double>("Price");
                     launch.SalesNumber = dataRow.Field<long>("SalesNumber");
                     launch.PlatformId = dataRow.Field<long>("PlatformId");
                     launch.PublisherId = dataRow.Field<long>("PublisherId");
