@@ -72,6 +72,13 @@ namespace Dash
             this.totalGamesTextBlock.Text = this.Launches.GetTotalGames().ToString();
 
 
+            int[] allYears = this.Launches.GetAllYears();
+            for (int i = 0; i < allYears.Length; i++)
+            {
+                this.allYears.Items.Add(allYears[i]);
+            }
+
+
 
         }
 

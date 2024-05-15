@@ -33,23 +33,12 @@
                         <hc:EventToCommand Command="{Binding SwitchItemCmd}" PassEventArgsToCommand="True" />
                     </hc:EventTrigger>
                 </hc:Interaction.Triggers>
-                <hc:SideMenuItem Header="Página Inicial" Background="{x:Null}" Foreground="White">
-                    <hc:SideMenuItem.Icon>
-                        <Image  Width="24" Height="24" Source="img/icons8-home-48.png"/>
-                    </hc:SideMenuItem.Icon>
-                </hc:SideMenuItem>
-                <hc:SideMenuItem Header="Movimentos" Background="{x:Null}" Foreground="White">
-                    <hc:SideMenuItem.Icon>
-                        <Image  Width="24" Height="24" Source="img/icons8-document-30.png"/>
-                    </hc:SideMenuItem.Icon>
-                </hc:SideMenuItem>
-                <hc:SideMenuItem Header="Detalhes" Background="{x:Null}" Foreground="White">
-                    <hc:SideMenuItem.Icon>
-                        <Image  Width="24" Height="24" Source="img/icons8-graph-60.png"/>
-                    </hc:SideMenuItem.Icon>
-                </hc:SideMenuItem>
 
             </hc:SideMenu>
+            <ComboBox x:Name="allYears" Height="43" Width="176"/>
+            <ComboBox Height="43" Width="176"/>
+            <ComboBox Height="43" Width="176"/>
+            <ComboBox Height="43" Width="176"/>
 
         </StackPanel>
         <StackPanel Grid.Column="1">
