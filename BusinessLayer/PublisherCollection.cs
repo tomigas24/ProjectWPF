@@ -39,6 +39,10 @@ namespace BusinessLayer
                 }
             }
         }
+        public string[] GetPublishers()
+        {
+            return this.Select(k => k.PublisherName).Distinct().ToArray();
+        }
 
         #endregion
     }

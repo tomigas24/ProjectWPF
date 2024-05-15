@@ -66,6 +66,8 @@ namespace Dash
 
         public PlatformCollection Platforms { get; set; }
 
+        public PublisherCollection Publishers { get; set; }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Launches = Launch.GetListLaunch();
@@ -88,6 +90,13 @@ namespace Dash
             for (int i = 0; i < platforms.Length; i++)
             {
                 this.platformsComboBox.Items.Add(platforms[i]);
+            }
+
+            Publishers = Publisher.GetListPublisher();
+            string[] publishers = this.Publishers.GetPublishers();
+            for (int i = 0; i < publishers.Length; i++)
+            {
+                this.publishersComboBox.Items.Add(publishers[i]);
             }
 
 
