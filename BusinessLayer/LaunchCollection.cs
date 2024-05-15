@@ -46,6 +46,7 @@ namespace BusinessLayer
             }
         }
 
+
         public int[] GetAllYears()
         {
             return this.Select(k => k.RealeaseDate.Year).Distinct().ToArray();

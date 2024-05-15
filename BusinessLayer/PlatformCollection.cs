@@ -40,6 +40,11 @@ namespace BusinessLayer
             }
         }
 
+        public string[] GetPlatforms()
+        {
+            return this.Select(k => k.PlatformName).Distinct().ToArray();
+        }
+
         #endregion
     }
 }

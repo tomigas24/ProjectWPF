@@ -35,8 +35,8 @@
                 </hc:Interaction.Triggers>
 
             </hc:SideMenu>
-            <ComboBox x:Name="allYears" Height="43" Width="176"/>
-            <ComboBox Height="43" Width="176"/>
+            <ComboBox x:Name="allYearsComboBox" Height="43" Width="176"/>
+            <ComboBox x:Name="platformsComboBox" Height="43" Width="176"/>
             <ComboBox Height="43" Width="176"/>
             <ComboBox Height="43" Width="176"/>
 

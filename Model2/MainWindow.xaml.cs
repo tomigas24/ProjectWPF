@@ -64,6 +64,8 @@ namespace Dash
 
         public LaunchCollection Launches { get; set; }
 
+        public PlatformCollection Platforms { get; set; }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Launches = Launch.GetListLaunch();
@@ -72,17 +74,23 @@ namespace Dash
             this.totalGamesTextBlock.Text = this.Launches.GetTotalGames().ToString();
 
 
+
+            //preenchimento das combo box
             int[] allYears = this.Launches.GetAllYears();
             for (int i = 0; i < allYears.Length; i++)
             {
-                this.allYears.Items.Add(allYears[i]);
+                this.allYearsComboBox.Items.Add(allYears[i]);
             }
 
 
+            Platforms = Platform.GetListPlatform();
+            string[] platforms = this.Platforms.GetPlatforms();
+            for (int i = 0; i < platforms.Length; i++)
+            {
+                this.platformsComboBox.Items.Add(platforms[i]);
+            }
+
 
         }
-
-
-
     }
 }
