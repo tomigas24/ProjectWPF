@@ -361,7 +361,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/DataLayer/DataLayer.csproj
-/DataLayer/app.config
-/DataLayer/Properties/Settings.Designer.cs
-/DataLayer/Properties/Settings.settings
