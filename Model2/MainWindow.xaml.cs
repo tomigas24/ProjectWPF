@@ -29,34 +29,34 @@ namespace Dash
 
             InitializeComponent();
 
-            DSeriesCollection = new SeriesCollection();
+            //DSeriesCollection = new SeriesCollection();
 
-            PieSeries piSeries = new PieSeries
-            {
-                Title = "Fuel",
-                Values = new ChartValues<ObservableValue> { new ObservableValue(45) },
-                DataLabels = true
-            };
-            DSeriesCollection.Add(piSeries);
+            //PieSeries piSeries = new PieSeries
+            //{
+            //    Title = "Fuel",
+            //    Values = new ChartValues<ObservableValue> { new ObservableValue(45) },
+            //    DataLabels = true
+            //};
+            //DSeriesCollection.Add(piSeries);
 
-            piSeries = new PieSeries
-            {
-                Title = "Food",
-                Values = new ChartValues<ObservableValue> { new ObservableValue(41) },
-                DataLabels = true
-            };
-            DSeriesCollection.Add(piSeries);
+            //piSeries = new PieSeries
+            //{
+            //    Title = "Food",
+            //    Values = new ChartValues<ObservableValue> { new ObservableValue(41) },
+            //    DataLabels = true
+            //};
+            //DSeriesCollection.Add(piSeries);
 
-            piSeries = new PieSeries
-            {
-                Title = "Rent",
-                Values = new ChartValues<ObservableValue> { new ObservableValue(230) },
-                DataLabels = true
-            };
-            DSeriesCollection.Add(piSeries);
+            //piSeries = new PieSeries
+            //{
+            //    Title = "Rent",
+            //    Values = new ChartValues<ObservableValue> { new ObservableValue(230) },
+            //    DataLabels = true
+            //};
+            //DSeriesCollection.Add(piSeries);
 
 
-            DataContext = this;
+           // DataContext = this;
         }
 
         public SeriesCollection DSeriesCollection { get; set; }
@@ -70,9 +70,9 @@ namespace Dash
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Launches = Launch.GetListLaunch();
+            this.Launches = Launch.GetListLaunch();
 
-            this.totalLaunchesTextBlock.Text = this.Launches.GetTotalLaunches().ToString();
+            //this.totalLaunchesTextBlock.Text = this.Launches.GetTotalLaunches().ToString();
             this.totalGamesTextBlock.Text = this.Launches.GetTotalGames().ToString();
 
 
@@ -84,13 +84,16 @@ namespace Dash
                 this.allYearsComboBox.Items.Add(allYears[i]);
             }
 
+            this.platformsComboBox.SelectedValuePath = "Id";
+            this.platformsComboBox.DisplayMemberPath = "PlatformName";
 
             Platforms = Platform.GetListPlatform();
-            string[] platforms = this.Platforms.GetPlatforms();
-            for (int i = 0; i < platforms.Length; i++)
-            {
-                this.platformsComboBox.Items.Add(platforms[i]);
-            }
+            //string[] platforms = this.Platforms.GetPlatforms();
+            //for (int i = 0; i < platforms.Length; i++)
+            //{
+            //    this.platformsComboBox.Items.Add(platforms[i]);
+            //}
+            this.platformsComboBox.ItemsSource = this.Platforms;
 
             Publishers = Publisher.GetListPublisher();
             string[] publishers = this.Publishers.GetPublishers();
@@ -99,7 +102,49 @@ namespace Dash
                 this.publishersComboBox.Items.Add(publishers[i]);
             }
 
+            this.allYearsComboBox.SelectionChanged += allYearsComboBox_SelectionChanged;
+        }
 
+        private void FilterValues(int year, long platformId)
+        {
+            int total = this.Launches.GetTotalLaunchesByFilter(year, platformId);
+            this.totalLaunchesTextBlock.Text = total.ToString();
+
+            DSeriesCollection = new SeriesCollection();
+
+            foreach (Launch item in this.Launches)
+            {
+                PieSeries piSeries = new PieSeries
+            {
+                Title = item.GameId.ToString(),
+                Values = new ChartValues<ObservableValue> { new ObservableValue(item.SalesNumber) },
+                DataLabels = true
+            };
+            DSeriesCollection.Add(piSeries);
+            }
+            DataContext = this;
+        }
+
+        private void allYearsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.Filter();
+            
+        }
+
+        private void Filter()
+        {
+            int year = 0;
+            long platformId = 0;
+
+            if (this.allYearsComboBox.SelectedItem != null)
+            {
+                year = (int)this.allYearsComboBox.SelectedItem;
+            }
+            if (this.platformsComboBox.SelectedItem != null)
+            {
+                platformId = ((Platform)this.platformsComboBox.SelectedItem).Id;
+            }
+            this.FilterValues(year, platformId);
         }
     }
 }

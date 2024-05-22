@@ -46,12 +46,18 @@ namespace BusinessLayer
             }
         }
 
-
         public int[] GetAllYears()
         {
             return this.Select(k => k.RealeaseDate.Year).Distinct().ToArray();
         }
 
+
+        public int GetTotalLaunchesByFilter(int year, long platformId)
+        {
+            int totalGames = this.Count(game => (game.RealeaseDate.Year == year ||year == 0) && (game.PlatformId == platformId || platformId == 0));
+
+            return totalGames;
+        }
         public int GetTotalLaunches()
         {
             int totalGames = 0;
