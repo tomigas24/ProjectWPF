@@ -22,7 +22,7 @@
         <StackPanel HorizontalAlignment="Left" Height="1550" VerticalAlignment="Top" Width="220" Background="#FF6F2CFF">
             <StackPanel Height="65" Orientation="Horizontal">
                 <Image Height="40" Margin="10,15,0,0" Source="img/icons8-dashboard-50.png" Width="40"/>
-                <TextBlock HorizontalAlignment="Left" Margin="10,30,0,15" TextWrapping="Wrap" Text="Model2" Width="150" FontWeight="Bold" Foreground="#FFFBFBFB"/>
+                <TextBlock Margin="10,30,0,15" TextWrapping="Wrap" Text="Retro Gaming" Width="150" FontWeight="Bold" Foreground="#FFFBFBFB" FontSize="16"/>
 
             </StackPanel>
             <Path Data="M0,60 L220,60" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,10,-1,0" Stretch="Fill" Stroke="#FFDEDDDD" VerticalAlignment="Top" Width="221"/>
@@ -37,14 +37,18 @@
             </hc:SideMenu>
 
 
-            <ComboBox x:Name="allYearsComboBox"  Height="43" Width="176"/>            
-            <ComboBox x:Name="platformsComboBox" Height="43" Width="176"/>
-            <ComboBox x:Name="publishersComboBox"  Height="43" Width="176"/>
+
+
+            <ComboBox x:Name="allYearsComboBox"  Height="43" Width="176"/>
+            <ComboBox x:Name="platformsComboBox" Height="43" Width="176" SelectionChanged="platformsComboBox_SelectionChanged"/>
+            <ComboBox x:Name="publishersComboBox"  Height="43" Width="176" SelectionChanged="publishersComboBox_SelectionChanged"/>
+
 
         </StackPanel>
         <StackPanel Grid.Column="1">
             <!--<TextBlock  HorizontalAlignment="Left" Height="35"  TextWrapping="Wrap" Text="Alberto Silva" VerticalAlignment="Top" Width="230" FontWeight="Bold" FontSize="18"/>-->
             <Grid>
+                <!--TOTAL LAUNCHES-->
                 <hc:Card Margin="10, 10, 0, 0" Content="" HorizontalAlignment="Left"  Height="125" VerticalAlignment="Top" Width="320">
                     <hc:Card.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -55,10 +59,11 @@
                 </hc:Card>
                 <StackPanel Margin="15, 10, 0, 0">
                     <!--<Image HorizontalAlignment="Left" Height="30"  VerticalAlignment="Top" Width="30" Source="img/icons8-graph-49.png"/>-->
-                    <TextBlock HorizontalAlignment="Left" Height="44.4"  TextWrapping="Wrap" Text="Total Launches" VerticalAlignment="Top" Width="192" FontWeight="Bold" Padding="0" Foreground="White" FontSize="26"/>
-                    <TextBlock x:Name="totalLaunchesTextBlock" HorizontalAlignment="Left" Height="35"  TextWrapping="Wrap" Text="7" Width="186" Padding="0" Foreground="White" FontSize="24"/>
+                    <TextBlock HorizontalAlignment="Left" Height="44"  TextWrapping="Wrap" Text="Total Launches" VerticalAlignment="Top" Width="192" FontWeight="Bold" Padding="0" Foreground="White" FontSize="22"/>
+                    <TextBlock x:Name="totalLaunchesTextBlock" HorizontalAlignment="Left" Height="35"  TextWrapping="Wrap" Text="0" Width="186" Padding="0" Foreground="White" FontSize="24"/>
                 </StackPanel>
-                
+
+                <!--TOTAL GAMES-->
                 <hc:Card Margin="10,140,0,-140" Content="" HorizontalAlignment="Left"  Height="125" VerticalAlignment="Top" Width="320">
                     <hc:Card.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -69,10 +74,11 @@
                 </hc:Card>
                 <StackPanel Margin="15,140,0,-140">
                     <!--<Image HorizontalAlignment="Left" Height="30"  VerticalAlignment="Top" Width="30" Source="img/icons8-graph-49.png"/>-->
-                    <TextBlock HorizontalAlignment="Left" Height="44.4"  TextWrapping="Wrap" Text="Total Games" VerticalAlignment="Top" Width="192" FontWeight="Bold" Padding="0" Foreground="White" FontSize="26"/>
-                    <TextBlock x:Name="totalGamesTextBlock" HorizontalAlignment="Left" Height="35"  TextWrapping="Wrap" Text="7" Width="186" Padding="0" Foreground="White" FontSize="24"/>
+                    <TextBlock HorizontalAlignment="Left" Height="44"  TextWrapping="Wrap" Text="Total Games Launched" VerticalAlignment="Top" Width="316" FontWeight="Bold" Padding="0" Foreground="White" FontSize="22"/>
+                    <TextBlock x:Name="totalGamesTextBlock" HorizontalAlignment="Left" Height="35"  TextWrapping="Wrap" Text="0" Width="186" Padding="0" Foreground="White" FontSize="24"/>
                 </StackPanel>
-                
+
+                <!--MOST USED PLATFORMS-->
                 <hc:Card Margin="10,270,0,-140" Content="" HorizontalAlignment="Left"  Height="125" VerticalAlignment="Top" Width="320">
                     <hc:Card.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -81,12 +87,13 @@
                         </LinearGradientBrush>
                     </hc:Card.Background>
                 </hc:Card>
-                <StackPanel Margin="15,270,0,-140">
+                <StackPanel Margin="12,270,0,-140">
                     <!--<Image HorizontalAlignment="Left" Height="30"  VerticalAlignment="Top" Width="30" Source="img/icons8-graph-49.png"/>-->
-                    <TextBlock HorizontalAlignment="Left" Height="44.4"  TextWrapping="Wrap" Text="Total Games" VerticalAlignment="Top" Width="192" FontWeight="Bold" Padding="0" Foreground="White" FontSize="26"/>
-                    <TextBlock x:Name="totalPlatformsTextBlock" HorizontalAlignment="Left" Height="35"  TextWrapping="Wrap" Text="7" Width="186" Padding="0" Foreground="White" FontSize="24"/>
+                    <TextBlock HorizontalAlignment="Left" Height="44"  TextWrapping="Wrap" Text="Platform With More Launches" VerticalAlignment="Top" Width="316" FontWeight="Bold" Padding="0" Foreground="White" FontSize="22"/>
+                    <TextBlock x:Name="mostPlatformTextBlock" HorizontalAlignment="Left" Height="35"  TextWrapping="Wrap" Text="0" Width="186" Padding="0" Foreground="White" FontSize="24"/>
                 </StackPanel>
 
+                <!--MOST USED PUBLISHERS-->
                 <hc:Card Margin="10,400,0,-140" Content="" HorizontalAlignment="Left"  Height="125" VerticalAlignment="Top" Width="320">
                     <hc:Card.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -95,15 +102,15 @@
                         </LinearGradientBrush>
                     </hc:Card.Background>
                 </hc:Card>
-                <StackPanel Margin="15,400,0,-140">
+                <StackPanel Margin="12,400,0,-140">
                     <!--<Image HorizontalAlignment="Left" Height="30"  VerticalAlignment="Top" Width="30" Source="img/icons8-graph-49.png"/>-->
-                    <TextBlock HorizontalAlignment="Left" Height="44.4"  TextWrapping="Wrap" Text="Total Games" VerticalAlignment="Top" Width="192" FontWeight="Bold" Padding="0" Foreground="White" FontSize="26"/>
-                    <TextBlock x:Name="totalPublishersTextBlock" HorizontalAlignment="Left" Height="35"  TextWrapping="Wrap" Text="7" Width="186" Padding="0" Foreground="White" FontSize="24"/>
+                    <TextBlock HorizontalAlignment="Left" Height="44"  TextWrapping="Wrap" Text="Publisher With More Launches" VerticalAlignment="Top" Width="316" FontWeight="Bold" Padding="0" Foreground="White" FontSize="22"/>
+                    <TextBlock x:Name="mostPublisherTextBlock" HorizontalAlignment="Left" Height="35"  TextWrapping="Wrap" Text="0" Width="186" Padding="0" Foreground="White" FontSize="24"/>
                 </StackPanel>
             </Grid>
         </StackPanel>
         <StackPanel Grid.Column="2">
-            <TextBlock HorizontalAlignment="Left" Height="25"  TextWrapping="Wrap" Text="Expenses" VerticalAlignment="Top" Width="140" FontWeight="Bold" Padding="0,5,0,0"/>
+            <TextBlock HorizontalAlignment="Left" Height="25"  TextWrapping="Wrap" Text="Sales Numbers" VerticalAlignment="Top" Width="140" FontWeight="Bold" Padding="0,5,0,0"/>
             <lvc:PieChart Name="Chart" Series="{Binding DSeriesCollection}" LegendLocation="Bottom" InnerRadius="40"  Height="300">
                 <lvc:PieChart.ChartLegend >
                     <lvc:DefaultLegend BulletSize="20"></lvc:DefaultLegend>

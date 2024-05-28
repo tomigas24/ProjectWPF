@@ -46,26 +46,98 @@ namespace BusinessLayer
             }
         }
 
+        public int GetTotalLaunchesByFilter(int year, long platformId, long publisherId)
+        {
+            int totalLaunches = this.Count(game => (game.RealeaseDate.Year == year || year == 0) && (game.PlatformId == platformId || platformId == 0) && (game.PublisherId == publisherId || publisherId == 0));
+
+            return totalLaunches;
+        }
+
+        public int GetTotalGamesByFilter(int year, long platformId, long publisherId)
+        {
+            HashSet<long> distinctGameIds = new HashSet<long>();
+
+            foreach (var game in this)
+            {
+                if ((game.RealeaseDate.Year == year || year == 0) && (game.PlatformId == platformId || platformId == 0) && (game.PublisherId == publisherId || publisherId == 0))
+                {
+                    distinctGameIds.Add(game.GameId);
+                }
+            }
+
+            return distinctGameIds.Count;
+        }
+
+        public long GetMostUsedPlatformByFilter(int year, long publisherId)
+        {
+            Dictionary<long, long> platformCounts = new Dictionary<long, long>();
+
+            foreach (var game in this)
+            {
+                if ((game.RealeaseDate.Year == year || year == 0) && (game.PublisherId == publisherId || publisherId == 0))
+                {
+                    if (!platformCounts.ContainsKey(game.PlatformId))
+                    {
+                        platformCounts[game.PlatformId] = 0;
+                    }
+                    platformCounts[game.PlatformId]++;
+                }
+            }
+
+            long maxCount = 0;
+            long mostUsedPlatformId = -1;
+
+            foreach (var kvp in platformCounts)
+            {
+                if (kvp.Value > maxCount)
+                {
+                    maxCount = kvp.Value;
+                    mostUsedPlatformId = kvp.Key;
+                }
+            }
+
+            return mostUsedPlatformId;
+        }
+
+        public long GetMostUsedPublisherByFilter(int year, long platformId)
+        {
+            Dictionary<long, long> publisherCounts = new Dictionary<long, long>();
+
+            foreach (var game in this)
+            {
+                if ((game.RealeaseDate.Year == year || year == 0) && (game.PlatformId == platformId || platformId == 0))
+                {
+                    if (!publisherCounts.ContainsKey(game.PublisherId))
+                    {
+                        publisherCounts[game.PublisherId] = 0;
+                    }
+                    publisherCounts[game.PublisherId]++;
+                }
+            }
+
+            long maxCount = 0;
+            long mostUsedPublisherId = -1;
+
+            foreach (var kvp in publisherCounts)
+            {
+                if (kvp.Value > maxCount)
+                {
+                    maxCount = kvp.Value;
+                    mostUsedPublisherId = kvp.Key;
+                }
+            }
+
+            return mostUsedPublisherId;
+        }
+
+
+
+
         public int[] GetAllYears()
         {
             return this.Select(k => k.RealeaseDate.Year).Distinct().ToArray();
         }
 
-
-        public int GetTotalLaunchesByFilter(int year, long platformId)
-        {
-            int totalGames = this.Count(game => (game.RealeaseDate.Year == year ||year == 0) && (game.PlatformId == platformId || platformId == 0));
-
-            return totalGames;
-        }
-        public int GetTotalLaunches()
-        {
-            int totalGames = 0;
-
-
-            totalGames = this.Select(k => k.Id).Distinct().Count();
-            return totalGames;
-        }
         public int GetTotalGames()
         {
             int totalGames = 0;
@@ -74,6 +146,9 @@ namespace BusinessLayer
             totalGames = this.Select(k => k.GameId).Distinct().Count();
             return totalGames;
         }
+
+
+
         #endregion
 
     }

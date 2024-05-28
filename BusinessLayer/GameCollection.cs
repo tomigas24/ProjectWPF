@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLayer;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -42,7 +43,14 @@ namespace BusinessLayer
             }
         }
 
-        #endregion
 
+        public string GetGameNameById(long gameId)
+        {
+            Game game = this.FirstOrDefault(p => p.Id == gameId);
+
+            return game?.GameName;
+        }
+
+        #endregion
     }
 }

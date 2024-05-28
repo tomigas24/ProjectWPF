@@ -40,9 +40,12 @@ namespace BusinessLayer
             }
         }
 
-        public string[] GetPlatforms()
+
+        public string GetPlatformNameById(int platformId)
         {
-            return this.Select(k => k.PlatformName).Distinct().ToArray();
+            Platform platform = this.FirstOrDefault(p => p.Id == platformId);
+
+            return platform?.PlatformName;
         }
 
         #endregion

@@ -39,10 +39,14 @@ namespace BusinessLayer
                 }
             }
         }
-        public string[] GetPublishers()
+
+        public string GetPublisherNameById(int publisherId)
         {
-            return this.Select(k => k.PublisherName).Distinct().ToArray();
+            Publisher publisher = this.FirstOrDefault(p => p.Id == publisherId);
+
+            return publisher?.PublisherName;
         }
+
 
         #endregion
     }

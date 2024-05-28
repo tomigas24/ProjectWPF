@@ -160,6 +160,9 @@
   <ItemGroup>
     <Content Include="retroGaming_20240515.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="img\games\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

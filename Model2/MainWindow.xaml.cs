@@ -26,43 +26,14 @@ namespace Dash
     {
         public MainWindow()
         {
-
             InitializeComponent();
-
-            //DSeriesCollection = new SeriesCollection();
-
-            //PieSeries piSeries = new PieSeries
-            //{
-            //    Title = "Fuel",
-            //    Values = new ChartValues<ObservableValue> { new ObservableValue(45) },
-            //    DataLabels = true
-            //};
-            //DSeriesCollection.Add(piSeries);
-
-            //piSeries = new PieSeries
-            //{
-            //    Title = "Food",
-            //    Values = new ChartValues<ObservableValue> { new ObservableValue(41) },
-            //    DataLabels = true
-            //};
-            //DSeriesCollection.Add(piSeries);
-
-            //piSeries = new PieSeries
-            //{
-            //    Title = "Rent",
-            //    Values = new ChartValues<ObservableValue> { new ObservableValue(230) },
-            //    DataLabels = true
-            //};
-            //DSeriesCollection.Add(piSeries);
-
-
-           // DataContext = this;
         }
 
         public SeriesCollection DSeriesCollection { get; set; }
 
-
         public LaunchCollection Launches { get; set; }
+
+        public GameCollection Games { get; set; }
 
         public PlatformCollection Platforms { get; set; }
 
@@ -71,11 +42,6 @@ namespace Dash
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Launches = Launch.GetListLaunch();
-
-            //this.totalLaunchesTextBlock.Text = this.Launches.GetTotalLaunches().ToString();
-            this.totalGamesTextBlock.Text = this.Launches.GetTotalGames().ToString();
-
-
 
             //preenchimento das combo box
             int[] allYears = this.Launches.GetAllYears();
@@ -86,55 +52,59 @@ namespace Dash
 
             this.platformsComboBox.SelectedValuePath = "Id";
             this.platformsComboBox.DisplayMemberPath = "PlatformName";
-
-            Platforms = Platform.GetListPlatform();
-            //string[] platforms = this.Platforms.GetPlatforms();
-            //for (int i = 0; i < platforms.Length; i++)
-            //{
-            //    this.platformsComboBox.Items.Add(platforms[i]);
-            //}
+            this.Platforms = Platform.GetListPlatform();
             this.platformsComboBox.ItemsSource = this.Platforms;
 
-            Publishers = Publisher.GetListPublisher();
-            string[] publishers = this.Publishers.GetPublishers();
-            for (int i = 0; i < publishers.Length; i++)
-            {
-                this.publishersComboBox.Items.Add(publishers[i]);
-            }
+            this.publishersComboBox.SelectedValuePath = "Id";
+            this.publishersComboBox.DisplayMemberPath = "PublisherName";
+            this.Publishers = Publisher.GetListPublisher();
+            this.publishersComboBox.ItemsSource = this.Publishers;
+
 
             this.allYearsComboBox.SelectionChanged += allYearsComboBox_SelectionChanged;
         }
 
-        private void FilterValues(int year, long platformId)
+        private void FilterValues(int year, long platformId, long publisherId)
         {
-            int total = this.Launches.GetTotalLaunchesByFilter(year, platformId);
-            this.totalLaunchesTextBlock.Text = total.ToString();
+            int totalLaunches = this.Launches.GetTotalLaunchesByFilter(year, platformId, publisherId);
+            this.totalLaunchesTextBlock.Text = totalLaunches.ToString();
+
+            int totalGames = this.Launches.GetTotalGamesByFilter(year, platformId, publisherId);
+            this.totalGamesTextBlock.Text = totalGames.ToString();
+
+            int mostUsedlLatform = (int)this.Launches.GetMostUsedPlatformByFilter(year, publisherId);
+            string platform = Platforms.GetPlatformNameById(mostUsedlLatform);
+            this.mostPlatformTextBlock.Text = platform;
+
+
+            int mostUsedPublisher = (int)this.Launches.GetMostUsedPublisherByFilter(year, publisherId);
+            string publisher = Publishers.GetPublisherNameById(mostUsedPublisher);
+            this.mostPublisherTextBlock.Text = publisher;
+
 
             DSeriesCollection = new SeriesCollection();
-
+            Games = new GameCollection();
             foreach (Launch item in this.Launches)
             {
-                PieSeries piSeries = new PieSeries
-            {
-                Title = item.GameId.ToString(),
-                Values = new ChartValues<ObservableValue> { new ObservableValue(item.SalesNumber) },
-                DataLabels = true
-            };
-            DSeriesCollection.Add(piSeries);
+                if (item.RealeaseDate.Year == year)
+                {
+                    string gameName = this.Games.GetGameNameById(item.GameId);
+                    PieSeries piSeries = new PieSeries
+                    {
+                        Title = gameName,
+                        Values = new ChartValues<ObservableValue> { new ObservableValue(item.SalesNumber) },
+                        DataLabels = true
+                    };
+                    DSeriesCollection.Add(piSeries);
+                }
             }
             DataContext = this;
         }
-
-        private void allYearsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            this.Filter();
-            
-        }
-
         private void Filter()
         {
             int year = 0;
             long platformId = 0;
+            long publisherId = 0;
 
             if (this.allYearsComboBox.SelectedItem != null)
             {
@@ -144,7 +114,28 @@ namespace Dash
             {
                 platformId = ((Platform)this.platformsComboBox.SelectedItem).Id;
             }
-            this.FilterValues(year, platformId);
+            if (this.publishersComboBox.SelectedItem != null)
+            {
+                publisherId = ((Publisher)this.publishersComboBox.SelectedItem).Id;
+            }
+            this.FilterValues(year, platformId, publisherId);
         }
+
+        private void allYearsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.Filter();
+            
+        }
+        private void platformsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.Filter();
+        }
+
+        private void publishersComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.Filter();
+        }
+
+
     }
 }
