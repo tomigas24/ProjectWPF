@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ConnectionString" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=retro;Data Source=HEISENBERG\SQLEXPRESS</Value>
+      <Value Profile="(Default)">Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=retro;Data Source=DESKTOP-8ROAV8I\SQLEXPRESS</Value>
     </Setting>
   </Settings>
 </SettingsFile>

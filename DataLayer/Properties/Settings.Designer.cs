@@ -26,7 +26,7 @@ namespace DataLayer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=retro;Data S" +
-            "ource=HEISENBERG\\SQLEXPRESS")]
+            "ource=DESKTOP-8ROAV8I\\SQLEXPRESS")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));

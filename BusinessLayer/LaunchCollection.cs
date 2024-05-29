@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLayer;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -46,20 +47,20 @@ namespace BusinessLayer
             }
         }
 
-        public int GetTotalLaunchesByFilter(int year, long platformId, long publisherId)
+        public int GetTotalLaunchesByFilter(int? year, long? platformId, long? publisherId)
         {
-            int totalLaunches = this.Count(game => (game.RealeaseDate.Year == year || year == 0) && (game.PlatformId == platformId || platformId == 0) && (game.PublisherId == publisherId || publisherId == 0));
+            int totalLaunches = this.Count(game => (year == null || game.RealeaseDate.Year == year ) && (platformId == null || game.PlatformId == platformId) && ( publisherId == null || game.PublisherId == publisherId));
 
             return totalLaunches;
         }
 
-        public int GetTotalGamesByFilter(int year, long platformId, long publisherId)
+        public int GetTotalGamesByFilter(int? year, long? platformId, long? publisherId)
         {
             HashSet<long> distinctGameIds = new HashSet<long>();
 
             foreach (var game in this)
             {
-                if ((game.RealeaseDate.Year == year || year == 0) && (game.PlatformId == platformId || platformId == 0) && (game.PublisherId == publisherId || publisherId == 0))
+                if ((year == null || game.RealeaseDate.Year == year) && (platformId == null || game.PlatformId == platformId) && (publisherId == 0 || game.PublisherId == publisherId))
                 {
                     distinctGameIds.Add(game.GameId);
                 }
@@ -68,13 +69,13 @@ namespace BusinessLayer
             return distinctGameIds.Count;
         }
 
-        public long GetMostUsedPlatformByFilter(int year, long publisherId)
+        public long GetMostUsedPlatformByFilter(int? year, long? publisherId)
         {
             Dictionary<long, long> platformCounts = new Dictionary<long, long>();
 
             foreach (var game in this)
             {
-                if ((game.RealeaseDate.Year == year || year == 0) && (game.PublisherId == publisherId || publisherId == 0))
+                if ((year == null || game.RealeaseDate.Year == year) && (publisherId == null || game.PublisherId == publisherId))
                 {
                     if (!platformCounts.ContainsKey(game.PlatformId))
                     {
@@ -99,13 +100,13 @@ namespace BusinessLayer
             return mostUsedPlatformId;
         }
 
-        public long GetMostUsedPublisherByFilter(int year, long platformId)
+        public long GetMostUsedPublisherByFilter(int? year, long? platformId)
         {
             Dictionary<long, long> publisherCounts = new Dictionary<long, long>();
 
             foreach (var game in this)
             {
-                if ((game.RealeaseDate.Year == year || year == 0) && (game.PlatformId == platformId || platformId == 0))
+                if ((year == null || game.RealeaseDate.Year == year) && (platformId == null || game.PlatformId == platformId))
                 {
                     if (!publisherCounts.ContainsKey(game.PublisherId))
                     {
