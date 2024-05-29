@@ -29,9 +29,15 @@ namespace BusinessLayer
         {
             if (dataTable != null)
             {
+                Publisher publisher = new Publisher();
+                publisher.Id = 0;
+                publisher.PublisherName = "All";
+
+                this.Add(publisher);
+
                 foreach (DataRow dataRow in dataTable.AsEnumerable())
                 {
-                    Publisher publisher = new Publisher();
+                    publisher = new Publisher();
                     publisher.Id = dataRow.Field<long>("Id");
                     publisher.PublisherName = dataRow.Field<string>("PublisherName");
 

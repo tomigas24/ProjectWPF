@@ -49,13 +49,10 @@ namespace Dash
         {
             this.Launches = Launch.GetListLaunch();
 
-            //preenchimento das combo box
-            int[] allYears = this.Launches.GetAllYears();
-            Array.Sort(allYears);
-            for (int i = 0; i < allYears.Length; i++)
-            {
-                this.allYearsComboBox.Items.Add(allYears[i]);
-            }
+            
+
+            this.SetYears();
+
 
             this.platformsComboBox.SelectedValuePath = "Id";
             this.platformsComboBox.DisplayMemberPath = "PlatformName";
@@ -80,12 +77,21 @@ namespace Dash
 
         private void SetPlatforms()
         {
-            this.platformsComboBox.ItemsSource = this.Platforms;
-            
+            long? platformIdFiltered = this.PlatformIdFiltered;
+            this.platformsComboBox.ItemsSource = this.Platforms.GetFilterValues(this.Launches,this.PublisherIdFiltered, ref platformIdFiltered);
+
+            this.PlatformIdFiltered = platformIdFiltered;
         }
         private void SetYears()
         {
-            
+            //preenchimento das combo box
+            int[] allYears = this.Launches.GetAllYears();
+
+            Array.Sort(allYears);
+            for (int i = 0; i < allYears.Length; i++)
+            {
+                this.allYearsComboBox.Items.Add(allYears[i]);
+            }
         }
 
         private void FilterValues( )
@@ -105,6 +111,46 @@ namespace Dash
             string publisher = Publishers.GetPublisherNameById(mostUsedPublisher);
             this.mostPublisherTextBlock.Text = publisher;
 
+            
+
+        }
+        private void Filter()
+        {
+            //int year = 0;
+            //long platformId = 0;
+            //long publisherId = 0;
+
+            if (this.allYearsComboBox.SelectedItem != null)
+            {
+                this.YearFiltered = (int)this.allYearsComboBox.SelectedItem;
+            }
+            else
+            {
+                this.YearFiltered = null;
+            }
+            if (this.platformsComboBox.SelectedItem != null)
+            {
+                this.PlatformIdFiltered = ((Platform)this.platformsComboBox.SelectedItem).Id;
+            }
+            else
+            {
+                this.PlatformIdFiltered = null;
+            }
+            if (this.publishersComboBox.SelectedItem != null)
+            {
+                this.PublisherIdFiltered = ((Publisher)this.publishersComboBox.SelectedItem).Id;
+                if (this.PublisherIdFiltered.HasValue && this.PublisherIdFiltered.Value==0)
+                {
+                    this.PublisherIdFiltered = null;
+                }
+            }
+            else
+            {
+                this.PublisherIdFiltered = null;
+            }
+            this.FilterValues();
+            this.RefreshCombos();
+
             DSeriesCollection = new SeriesCollection();
             Games = new GameCollection();
             foreach (Launch item in this.Launches)
@@ -122,49 +168,21 @@ namespace Dash
                 }
             }
             DataContext = this;
-
-        }
-        private void Filter()
-        {
-            //int year = 0;
-            //long platformId = 0;
-            //long publisherId = 0;
-
-            if (this.allYearsComboBox.SelectedItem != null)
-            {
-                this.YearFiltered = (int)this.allYearsComboBox.SelectedItem;
-
-
-            }
-            else
-            {
-                this.YearFiltered = null;
-            }
-            if (this.platformsComboBox.SelectedItem != null)
-            {
-                this.PlatformIdFiltered = ((Platform)this.platformsComboBox.SelectedItem).Id;
-            }
-            else
-            {
-                this.PlatformIdFiltered = null;
-            }
-            if (this.publishersComboBox.SelectedItem != null)
-            {
-                this.PublisherIdFiltered = ((Publisher)this.publishersComboBox.SelectedItem).Id;
-            }
-            else
-            {
-                this.PublisherIdFiltered = null;
-            }
-            this.FilterValues();
-            this.RefreshCombos();
         }
 
         private void RefreshCombos()
         {
-            SetYears();
+            this.publishersComboBox.SelectionChanged -= new System.Windows.Controls.SelectionChangedEventHandler(this.publishersComboBox_SelectionChanged);
+            this.allYearsComboBox.SelectionChanged -= new System.Windows.Controls.SelectionChangedEventHandler(this.allYearsComboBox_SelectionChanged);
+            this.platformsComboBox.SelectionChanged -= new System.Windows.Controls.SelectionChangedEventHandler(this.platformsComboBox_SelectionChanged);
+            
+            this.SetYears();
             SetPlatforms();
             SetPublishers();
+
+            this.publishersComboBox.SelectionChanged += new System.Windows.Controls.SelectionChangedEventHandler(this.publishersComboBox_SelectionChanged);
+            this.allYearsComboBox.SelectionChanged += new System.Windows.Controls.SelectionChangedEventHandler(this.allYearsComboBox_SelectionChanged);
+            this.platformsComboBox.SelectionChanged += new System.Windows.Controls.SelectionChangedEventHandler(this.platformsComboBox_SelectionChanged);
         }
 
         private void allYearsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
